@@ -28,7 +28,7 @@ function Body() {
 		e.preventDefault();
 		if (title !== "" && content !== "") {
 			let idea = { id: new Date().getTime().toString(), title: title, content: content };
-			db.collection('ideas').doc(idea.id).set({ id: idea.id, title: idea.title, content: idea.content });
+			db.collection('ideas').doc(idea.id).set({ id: idea.id, title: idea.title, content: idea.content, author: });
 			setIdeas([...ideas, idea]);
 		} else {
 			alert("You cannot enter null values in title and content box!");
