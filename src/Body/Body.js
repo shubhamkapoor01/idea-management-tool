@@ -129,6 +129,18 @@ function Body() {
 		setIsSorted(true);
 	}
 
+	const sortNormal = () => { 
+		console.log('sorting')
+		console.log(ideasGroups);
+
+		var newIdeas = [];
+		for (var i = 0; i < ideas.length; i ++) {
+			newIdeas.push(ideas[i]);
+		}
+		newIdeas.sort((a, b) => (a.title > b.title) ? 1 : -1);
+		setIdeas(newIdeas);
+	}
+
 	const handleOnDragEnd = (result) => {
 		const items = [];
 		for (var i = 0; i < ideas.length; i ++) {
@@ -240,6 +252,9 @@ function Body() {
 								</button>
 							</div>
 						</Popup>
+						<button className="features__sort" onClick={ sortNormal }>
+							Sort
+						</button>
 						<button className="features__sort" onClick={ enableDragDrop }>
 							Normal View
 						</button>
