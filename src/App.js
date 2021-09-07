@@ -1,9 +1,11 @@
 import './App.css';
+import React, { useState } from 'react'
 import Header from './Header/Header.js'
 import Body from './Body/Body.js'
 import Footer from './Footer/Footer.js'
 
-function App() {
+function App() {  
+
   return (
     <div className="app">
       <Header />

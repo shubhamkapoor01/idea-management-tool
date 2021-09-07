@@ -7,9 +7,28 @@
 	flex-direction: column;
 }
 
+.body__idea__author {
+	background-color: lightblue;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 16px;
+	padding: 10px;
+}	
+
 .body__ideas {
 	display: flex;
 	flex-direction: row;
+}
+
+.body__dragdrop__grouped {
+	display: flex;
+	flex-direction: column;
+	margin-top: 24px;
+	margin-left: 24px;
+	padding: 12px;
+	border: 1px solid black;
+	border-radius: 16px;
+	background-color: lightgrey;
 }
 
 .body__ideaGroup__title {
@@ -21,10 +40,7 @@
 
 .body__ideaGroup {
 	display: flex;
-	flex-direction: column;
-	background-color: lightgrey;
-	margin-left: 20px;
-	margin-top: 20px;
+	flex-direction: row;
 	padding: 10px;
 	
 }
@@ -202,7 +218,6 @@ button:hover {
 .features__selection__button {
 	padding: 8px;
 	margin: 10px;
-	margin-left: 0px;
 	background-color: black;
 	color: white;
 	font-size: 16px;
