@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
 import db from './firebase'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import draggable, { draggableCore } from 'react-draggable'
 
 function Body() {
 
@@ -13,12 +14,14 @@ function Body() {
 	const [content, setContent] = useState("");
 	const [newTitle, setNewTitle] = useState("");
 	const [isSorted, setIsSorted] = useState(false);
+	const [isCanvas, setIsCanvas] = useState(false);
 	const [newContent, setNewContent] = useState("");
 	const [ideasList, setIdeasList] = useState(ideas);
 	const [ideasGroups, setIdeasGroups] = useState([]);
 
 	const enableDragDrop = () => { 
 		setIsSorted(false);
+		setIsCanvas(false);
 	}
 
 	const SortButton = () => {
@@ -53,6 +56,7 @@ function Body() {
 		setTitle("");
 		setContent("");
 		setIsSorted(false);
+		setIsCanvas(false);
 	}
 
 	const editIdea = (requiredId) => {
@@ -76,6 +80,7 @@ function Body() {
 		setNewTitle("");
 		setNewContent("");
 		setIsSorted(false);
+		setIsCanvas(false);
 	}
 
 	const deleteIdea = (requiredId) => {
@@ -91,6 +96,7 @@ function Body() {
 		}
 		setIdeas(newIdeas);
 		setIsSorted(false);
+		setIsCanvas(false);
 	}
 
 	const sortIdeas = () => { 
@@ -119,6 +125,7 @@ function Body() {
 
 		setIdeasGroups(newGroup);
 		console.log(ideasGroups);
+		setIsCanvas(false);
 		setIsSorted(true);
 	}
 
@@ -138,6 +145,7 @@ function Body() {
 		}
 		setIdeas([]);
 		setIsSorted(false);
+		setIsCanvas(false);
 	}
 
 	const addFilter = (e) => { 
@@ -156,6 +164,22 @@ function Body() {
 		}
 		setFilter("");
 		setIsSorted(false);
+		setIsCanvas(false);
+	}
+
+	const makeCanvas = () => {
+		setIsCanvas(true);
+		setIsSorted(false);
+	}
+
+	const dropCard = (e) => { 
+		e.target.style.left = `${e.pageX - 100}px`;
+		e.target.style.top = `${e.pageY - 100}px`;
+	}
+
+	const dragOver = (e) => { 
+		e.stopPropagation();
+		e.preventDefault();
 	}
 
 	return (
@@ -170,7 +194,7 @@ function Body() {
 							Filter by: 
 						</div>
 						<Popup trigger={
-							<button className="features__selection__button">
+							<button className="features__select__button">
 								Select
 							</button>
 						} position="right top">
@@ -216,7 +240,15 @@ function Body() {
 								</button>
 							</div>
 						</Popup>
-						<SortButton />
+						<button className="features__sort" onClick={ enableDragDrop }>
+							Normal View
+						</button>
+						<button className="features__sort" onClick={ sortIdeas }>
+							Group By Title 
+						</button>
+						<button className="features__canvas" onClick={ makeCanvas }>
+							Canvas
+						</button>
 						<button className="features__deleteall" onClick={ deleteAllIdeas }>
 							Delete All
 						</button>
@@ -292,51 +324,103 @@ function Body() {
 							})}
 						</div>
 				 	) : (
-						<div className="body__normal">
-							{ ideas.map((idea) => { 
-								return (
-										<div className="body__idea">
-											<p className="body__idea__title">											
-												{ idea.title }
-											</p>
-											<p className="body__idea__content">
-												{ idea.content }
-											</p>
-											<p className="body__idea__author">
-												By: { idea.author }
-											</p>
-											<div className="body__idea__buttons">
-												<Popup trigger={
-													<button className="body__idea__edit">
-														Edit
-													</button>
-												} position="right top">
-													<div className="body__popup">
-														<input className="body__popup__titleinput" 
-															type="text" 
-															placeholder="Write the idea title here..."
-															value={ newTitle }
-															onChange={ (e) => setNewTitle(e.target.value) }
-														/>
-														<input className="body__popup__textinput" 
-															type="text" 
-															placeholder="Write the idea content here..."
-															value={ newContent }
-															onChange={ (e) => setNewContent(e.target.value) }
-														/>
-														<button className="body__popup__submit" type="submit" onClick={ () => { editIdea(idea.id) } }>
-															Done
+						 	isCanvas ? (
+								<div className="canvas" onDragOver={ dragOver }>
+								{ ideas.map((idea) => { 
+										return (
+											<div className="card"
+												draggable="true"
+												onDragEnd={ dropCard }
+												key = { idea.id }
+											>
+												<p className="body__idea__title">											
+													{ idea.title }
+												</p>
+												<p className="body__idea__content">
+													{ idea.content }
+												</p>
+												<p className="body__idea__author">
+													By: { idea.author }
+												</p>
+												<div className="body__idea__buttons">
+													<Popup trigger={
+														<button className="body__idea__edit">
+															Edit
 														</button>
-													</div>
-												</Popup>
-												<button className="body__idea__delete" onClick={ () => { deleteIdea(idea.id) } }>
-													Delete
-												</button>
+													} position="right top">
+														<div className="body__popup">
+															<input className="body__popup__titleinput" 
+																type="text" 
+																placeholder="Write the idea title here..."
+																value={ newTitle }
+																onChange={ (e) => setNewTitle(e.target.value) }
+															/>
+															<input className="body__popup__textinput" 
+																type="text" 
+																placeholder="Write the idea content here..."
+																value={ newContent }
+																onChange={ (e) => setNewContent(e.target.value) }
+															/>
+															<button className="body__popup__submit" type="submit" onClick={ () => { editIdea(idea.id) } }>
+																Done
+															</button>
+														</div>
+													</Popup>
+													<button className="body__idea__delete" onClick={ () => { deleteIdea(idea.id) } }>
+														Delete
+													</button>
+												</div>
 											</div>
-										</div>
-								)
-							})}	
-						</div>
+										)
+									})}	
+								</div>
+						 	) : (
+								<div className="body__normal">
+									{ ideas.map((idea) => { 
+										return (
+											<div className="body__idea">
+												<p className="body__idea__title">											
+													{ idea.title }
+												</p>
+												<p className="body__idea__content">
+													{ idea.content }
+												</p>
+												<p className="body__idea__author">
+													By: { idea.author }
+												</p>
+												<div className="body__idea__buttons">
+													<Popup trigger={
+														<button className="body__idea__edit">
+															Edit
+														</button>
+													} position="right top">
+														<div className="body__popup">
+															<input className="body__popup__titleinput" 
+																type="text" 
+																placeholder="Write the idea title here..."
+																value={ newTitle }
+																onChange={ (e) => setNewTitle(e.target.value) }
+															/>
+															<input className="body__popup__textinput" 
+																type="text" 
+																placeholder="Write the idea content here..."
+																value={ newContent }
+																onChange={ (e) => setNewContent(e.target.value) }
+															/>
+															<button className="body__popup__submit" type="submit" onClick={ () => { editIdea(idea.id) } }>
+																Done
+															</button>
+														</div>
+													</Popup>
+													<button className="body__idea__delete" onClick={ () => { deleteIdea(idea.id) } }>
+														Delete
+													</button>
+												</div>
+											</div>
+										)
+									})}	
+								</div>
+						 	)
 					)
 				}
 			</div>

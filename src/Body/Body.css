@@ -2,6 +2,46 @@
 	font-family: 'Poppins', sans-serif;
 }
 
+.features__selection__popup {
+	display: flex;
+	flex-direction: column;
+	width: 235px;
+	height: 120px;
+	padding: 10px;
+	margin: 10px;
+	font-size: 16px;
+	font-weight: 600;
+	border-radius: 16px;
+	background: linear-gradient(
+    to right bottom, 
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 1.5rem;
+  backdrop-filter: blur(2rem);
+	box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+}
+
+.card {
+	position: absolute;
+	height: auto;
+	width: 200px;
+	padding: 10px;
+	margin: 50px;
+	font-size: 16px;
+	font-weight: 600;
+	border-radius: 16px;
+	background: linear-gradient(
+    to right bottom, 
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+	background: url("./background.jpg");
+  border-radius: 1.5rem;
+  backdrop-filter: blur(2rem);
+	box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;	
+}
+
 .body {
 	display: flex;
 	flex-direction: column;
@@ -282,27 +322,32 @@ button:hover {
 	font-weight: 700;
 }
 
-.features__selection__popup {
-	display: flex;
-	flex-direction: column;
-	background-color: lightgrey;
-	padding: 20px;
-	margin: 20px;
-	align-items: center;
-	border: 1px solid #202020;
-}
-
 .features__selection__input {
-	margin: 10px;
-	padding: 10px;
-	border-radius: 10px;
-	border: 1px solid #202020;
-	width: 90%;
+	background-color: transparent;
+	opacity: 0.75;
+	text-align: center;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
+	border-radius: 16px;
+	padding: 12px;
+	margin: 4px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: lightblue;
+	background: linear-gradient(
+    to right bottom, 
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.3)
+  );
+	font-weight: 500;
+	backdrop-filter: blur(2rem);
+	outline: none;
+	border: 1px solid #707070;
 }
 
 .features__selection__submit {
 	padding: 8px;
-	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
 	background-color: black;
 	color: white;
 	font-size: 16px;
@@ -346,7 +391,7 @@ button:hover {
 	margin-right: 0px;
 }
 
-.features__selection__button {
+.features__canvas {
 	padding: 8px;
 	margin: 10px;
 	background-color: black;
@@ -354,6 +399,28 @@ button:hover {
 	font-size: 16px;
 	border: none;
 	border-radius: 8px;
+}
+
+.features__select__button {
+	padding: 8px;
+	margin: 10px;
+	background-color: black;
+	color: white;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;	
+}
+
+.features__selection__button {
+	padding: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: black;
+	margin-top: 10px;
+	color: white;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;	
 }
 
 .features__newidea {
@@ -452,7 +519,7 @@ button:hover {
 	.body__normal {
 		display: grid;
 		grid-template-columns: 0.1fr auto 0.1fr auto 0.1fr auto 0.1fr auto;	
-	}
+	;}
 }
 
 @media only screen and (max-width: 1700px) {
