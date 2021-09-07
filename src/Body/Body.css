@@ -2,6 +2,25 @@
 	display: flex;
 }
 
+.body__dragdrop {
+	display: flex;
+	flex-direction: column;
+}
+
+.body__ideas {
+	display: flex;
+	flex-direction: column;
+}
+
+.body__ideaGroup {
+	display: flex;
+	flex-direction: row;
+	background-color: lightgrey;
+	margin-top: 32px;
+	padding: 12px;
+	
+}
+
 .body__idea {
 	display: flex;
 	flex-direction: column;
