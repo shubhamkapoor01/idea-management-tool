@@ -9,15 +9,23 @@
 
 .body__ideas {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+}
+
+.body__ideaGroup__title {
+	color: black;
+	font-size: 20px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .body__ideaGroup {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	background-color: lightgrey;
-	margin-top: 32px;
-	padding: 12px;
+	margin-left: 20px;
+	margin-top: 20px;
+	padding: 10px;
 	
 }
 

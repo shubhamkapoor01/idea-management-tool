@@ -218,6 +218,9 @@ function Body() {
 							{ ideasGroups.map((ideasGroup) => {
 								return (
 									<div className="body__ideaGroup">
+										<h2 className="body__ideaGroup__title">
+											Group Title: { ideasGroup[0].title }
+										</h2>
 										{ ideasGroup.map((idea) => {
 											return (
 												<div className="body__idea" key={ idea.id }>
