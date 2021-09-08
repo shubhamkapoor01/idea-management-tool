@@ -514,6 +514,14 @@ button:hover {
 	flex-direction: row;
 }
 
+.slider__div {
+	width: 100px;
+	margin: auto;
+}
+
+.slider {
+	color: black !important;
+}
 
 @media only screen and (max-width: 1900px) {
 	.body__normal {

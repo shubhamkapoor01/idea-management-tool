@@ -2,11 +2,13 @@ import './Body.css'
 import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
 import db from './firebase'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import draggable, { draggableCore } from 'react-draggable'
+import { Slider } from '@material-ui/core'
 
 function Body() {
 
+	const [size, setSize] = useState(200);
 	const [ideas, setIdeas] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
@@ -194,6 +196,21 @@ function Body() {
 		e.preventDefault();
 	}
 
+	const reSize = (e) => {
+		if (e.target.value === 0) {
+			setSize(150);
+		} else if (e.target.value === 10) {
+			setSize(175);
+		} else if (e.target.value === 20) {
+			setSize(200);
+		} else if (e.target.value === 30) {
+			setSize(225);
+		} else if (e.target.value === 40) {
+			setSize(250);
+		}
+		console.log(size);
+	}
+
 	return (
 		<div className="body">
 			<div className="features">
@@ -221,6 +238,15 @@ function Body() {
 								</button>
 							</div>
 						</Popup>
+					</div>
+					<div className="slider__div">
+						<Slider className="slider"
+							defaultValue={ 20 }
+							onChange={ reSize }
+							step={ 10 }
+							max={ 40 }
+							min={ 0 }
+						/>
 					</div>
 					<div className="features__buttons">
 						<Popup trigger={
@@ -288,7 +314,11 @@ function Body() {
 														return (
 															<Draggable draggableId={ idea.id }  key={ idea.id } index={ index }>
 																{(provided) => (
-																	<div className="body__idea" {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}>
+																	<div className="body__idea" 
+																		{...provided.draggableProps} 
+																		ref={provided.innerRef} 
+																		{...provided.dragHandleProps}
+																	>
 																		<p className="body__idea__title">
 																			{ idea.title }
 																		</p>
